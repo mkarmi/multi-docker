@@ -1,0 +1,35 @@
+{
+    "AWSEBDockerrunversion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "mkarmi/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name":"server",
+            "image":"mkarmi/multi-server",
+            "hostname":"api",
+            "essential": false
+        },
+        {
+            "name":"worker",
+            "image":"mkarmi/multi-worker",
+            "hostname":"worker",
+            "essential": false
+        },
+        {
+            "name" : "nginx",
+            "image" : "mkarmi/multi-nginx",
+            "essential": true,
+            "portMappings":[
+                {
+                    "hostPort":80,
+                    "containerPort":80
+                }
+            ],
+            "links": ["client","server"]
+        }
+    ]
+}
